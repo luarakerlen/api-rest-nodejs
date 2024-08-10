@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "knex": "node --import tsx ./node_modules/.bin/knex",
     "lint": "eslint src -e .ts --fix"
   },
   "devDependencies": {
