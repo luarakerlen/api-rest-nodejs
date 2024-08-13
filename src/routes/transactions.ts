@@ -17,9 +17,17 @@ export async function transactionsRoutes(app: FastifyInstance) {
 		const { id } = getTransactionParamsSchema.parse(request.params);
 
 		const transaction = await knex('transactions').where('id', id).first(); // Sem o first, retorna uma array. O first retorna o primeiro (e único) elemento da array
-	
-    return { transaction };
-  });
+
+		return { transaction };
+	});
+
+	app.get('/summary', async () => {
+		const summary = await knex('transactions')
+			.sum('amount', { as: 'amount' })
+			.first();
+
+		return { summary };
+	});
 
 	app.post('/', async (request, response) => {
 		const createTransactionBodySchema = z.object({
